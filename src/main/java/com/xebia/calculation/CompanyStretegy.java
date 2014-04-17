@@ -1,5 +1,8 @@
 package com.xebia.calculation;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CompanyStretegy {
 
 	public float getMilk(float age, int timelapsed) {
@@ -21,15 +24,6 @@ public class CompanyStretegy {
 		return counter;
 	}
 
-	public static void main(String[] args) {
-		
-		CompanyStretegy companyStretegy = new CompanyStretegy();
-		/*
-		 * System.out.println(getMilk(9.5f,14)); System.out.println(getMilk(4));
-		 */
-		System.out.println(companyStretegy.getMilk(9.9f, 12));
-		System.out.println(companyStretegy.getSkin(0.9f, 12));
-
-	}
+	
 
 }

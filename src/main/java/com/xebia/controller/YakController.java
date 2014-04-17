@@ -16,7 +16,7 @@ import com.xebia.entity.Herd;
 import com.xebia.entity.Order;
 import com.xebia.entity.OrderRequest;
 import com.xebia.entity.Stock;
-import com.xebia.service.YakService;
+import com.xebia.service.IYakService;
 
 /**
  * Handles requests for the Yak service.
@@ -24,14 +24,14 @@ import com.xebia.service.YakService;
 @Controller
 public class YakController {
 
-	@Autowired
-	YakService yakSer;
+	@Autowired(required=true)
+	IYakService yakSer;
 
-	public YakService getYakSer() {
+	public IYakService getYakSer() {
 		return yakSer;
 	}
 
-	public void setYakSer(YakService yakSer) {
+	public void setYakSer(IYakService yakSer) {
 		this.yakSer = yakSer;
 	}
 

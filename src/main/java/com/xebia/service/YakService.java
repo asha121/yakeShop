@@ -1,6 +1,6 @@
 package com.xebia.service;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xebia.calculation.CompanyStretegy;
 import com.xebia.entity.Herd;
@@ -10,10 +10,9 @@ import com.xebia.entity.OrderRequest;
 import com.xebia.entity.Stock;
 import com.xebia.util.DataLoader;
 
-@Service
-public class YakService {
-
-	CompanyStretegy companyStretegy = new CompanyStretegy();
+public class YakService implements IYakService {
+	@Autowired
+	CompanyStretegy companyStretegy;
 
 	public Stock getStock(int timeLapsed) {
 		Herd herd = DataLoader.LoadData();
@@ -36,36 +35,29 @@ public class YakService {
 		return herd;
 
 	}
-	
-	
-	public String fullfillOrder(Order fullfillOrder,OrderRequest orderRequest, int timelapsed){
-		String status= "NOT_FOUND";
-		
+
+	public String fullfillOrder(Order fullfillOrder, OrderRequest orderRequest,
+			int timelapsed) {
+		String status = "NOT_FOUND";
+
 		Order request = orderRequest.getOrder();
-		
-		Stock stock =getStock(timelapsed);
-		
-		if(request.getMilk() <= stock.getMilk()){
+
+		Stock stock = getStock(timelapsed);
+
+		if (request.getMilk() <= stock.getMilk()) {
 			fullfillOrder.setMilk(request.getMilk());
-			status="PARTIAL";
+			status = "PARTIAL";
 		}
-		if(request.getSkins() <= stock.getSkin()){
+		if (request.getSkins() <= stock.getSkin()) {
 			fullfillOrder.setSkins(request.getSkins());
-			if(status.equals("PARTIAL")){
-				status="CREATED";
-			}else{
-				status="PARTIAL";
+			if (status.equals("PARTIAL")) {
+				status = "CREATED";
+			} else {
+				status = "PARTIAL";
 			}
 		}
 		return status;
-		
-	}
 
-	public static void main(String[] args) {
-		YakService service = new YakService();
-		Stock stock = service.getStock(51);
-		Herd herd = service.getHerd(5);
-		System.out.println(stock + "\n" + herd);
 	}
 
 }
